@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 export default defineConfig(({ mode }) => ({
   plugins: [react(), mode === "development" && screenGraphPlugin()],
   publicDir: "./static",
-  base: "./",
+  base: "/sicoescan-page/",
   css: {
     postcss: {
       plugins: [tailwind()],
