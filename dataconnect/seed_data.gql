@@ -1,0 +1,92 @@
+mutation SeedData @auth(level: USER) {
+  company_insertMany(data: [
+    {
+      companyId: "C123",
+      name: "Tech Solutions Inc.",
+      taxId: "12-3456789",
+      address: "123 Main St",
+      contactPerson: "John Doe",
+      contactEmail: "john.doe@techsolutions.com",
+      sector: "Technology"
+    },
+    {
+      companyId: "C456",
+      name: "Global Enterprises Ltd.",
+      taxId: "98-7654321",
+      address: "456 Oak Ave",
+      contactPerson: "Jane Smith",
+      contactEmail: "jane.smith@globalenterprises.com",
+      sector: "Finance"
+    }
+  ])
+  tender_insertMany(data: [
+    {
+      tenderId: "T101",
+      title: "Software Development",
+      issuingAgency: "Government Agency",
+      estimatedBudget: 100000.0,
+      announcementDate: "2024-01-15",
+      deadlineDate: "2024-02-29",
+      status: "Open",
+      contactEmail: "info@govagency.com",
+      category: "IT Services",
+      description: "Development of a new software platform",
+      documentLink: "https://example.com/tender101",
+      region: "South America"
+    },
+    {
+      tenderId: "T102",
+      title: "Infrastructure Upgrade",
+      issuingAgency: "City Council",
+      estimatedBudget: 50000.0,
+      announcementDate: "2024-02-01",
+      deadlineDate: "2024-03-15",
+      status: "Closed",
+      contactEmail: "council@city.gov",
+      category: "Construction",
+      description: "Upgrade of city infrastructure",
+      documentLink: "https://example.com/tender102",
+      region: "South America"
+    }
+  ])
+  award_insertMany(data: [
+    {
+      awardId: "A201",
+      awardedCompanyId: "550e8400-e29b-41d4-a716-446655440000", # Replace with actual Company ID from insert
+      tenderId: "550e8400-e29b-41d4-a716-446655440001", # Replace with actual Tender ID from insert
+      awardDate: "2024-03-01",
+      contractAmount: 90000.0,
+      contractDuration: "6 months",
+      justification: "Best proposal"
+    },
+    {
+      awardId: "A202",
+      awardedCompanyId: "550e8400-e29b-41d4-a716-446655440001", # Replace with actual Company ID from insert
+      tenderId: "550e8400-e29b-41d4-a716-446655440000", # Replace with actual Tender ID from insert
+      awardDate: "2024-04-01",
+      contractAmount: 45000.0,
+      contractDuration: "3 months",
+      justification: "Met requirements"
+    }
+  ])
+  bid_insertMany(data: [
+    {
+      bidId: "B301",
+      companyId: "550e8400-e29b-41d4-a716-446655440000", # Replace with actual Company ID from insert
+      tenderId: "550e8400-e29b-41d4-a716-446655440001", # Replace with actual Tender ID from insert
+      bidAmount: 95000.0,
+      submissionDate: "2024-02-28T12:00:00Z",
+      status: "Accepted",
+      notes: "Detailed proposal"
+    },
+    {
+      bidId: "B302",
+      companyId: "550e8400-e29b-41d4-a716-446655440001", # Replace with actual Company ID from insert
+      tenderId: "550e8400-e29b-41d4-a716-446655440000", # Replace with actual Tender ID from insert
+      bidAmount: 48000.0,
+      submissionDate: "2024-03-14T12:00:00Z",
+      status: "Rejected",
+      notes: "Missing information"
+    }
+  ])
+}

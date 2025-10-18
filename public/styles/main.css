@@ -1,0 +1,390 @@
+:root {
+  --primary-color: #1B263B; 
+  --secondary-color: #415A77;
+  --accent-color: #E0E1DD;
+  --text-color: #000000;
+  --background-color: #f9f9f9;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-color);
+}
+
+.navbar-main {
+  background-color: var(--primary-color);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-main ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-main li {
+  margin-right: 20px;
+}
+
+.navbar-main a {
+  color: var(--background-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-main a:hover {
+  color: var(--secondary-color);
+}
+
+.info-1 {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 40px;
+  text-align: left;
+  font-family: 'Caveat', cursive;
+  display: flex;
+}
+
+.info-1 h1 {
+  font-size: 69px;
+  font-weight: normal;
+}
+
+.info-1 h2 {
+  font-size: 42px;
+  font-weight: normal;
+}
+
+.info-2 {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 10px;
+  text-align: left;
+  font-family: 'Inter';
+  display: flex;
+}
+
+.info-2 h1 {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.info-2 h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.info-3 {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 40px;
+  text-align: left;
+  font-family: 'Caveat', cursive;
+  display: flex;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 95%;
+  max-width: 1400px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #eef5ff;
+  transition: background-color 0.2s ease;
+}
+
+table th, table td {
+  border-right: 1px solid #ddd;
+}
+
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}
+
+/* Ajustar anchos de columnas específicas */
+th:nth-child(1), td:nth-child(1) {  /* CUCE */
+  width: 110px;
+  white-space: nowrap;
+}
+
+th:nth-child(2), td:nth-child(2) {  /* Código de la entidad */
+  width: 250px;
+}
+
+th:nth-child(3), td:nth-child(3) {  /* Estado del proceso */
+  width: 120px;
+  text-align: center;
+}
+
+th:nth-child(4), td:nth-child(4) {  /* Objeto de contratación */
+  width: 400px;
+}
+
+th:nth-child(8), td:nth-child(8) {  /* Tipo de contratación */
+  width: 150px;
+}
+
+th:nth-child(12), td:nth-child(12) {  /* Entrega definitiva */
+  width: 130px;
+  text-align: center;
+}
+
+/* Asegura que las celdas largas hagan salto de línea sin romper el layout */
+td {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+select {
+  appearance: none; /* Removes native arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 40px 10px 12px;
+  font-size: 14px;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+select:hover {
+  border-color: var(--secondary-color);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-family: "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  background-color: var(--secondary-color);
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+}
+
+.basedatos-graphs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-direction: row;
+}
+
+.basedatos-graphs > div {
+  flex: 1 1 auto;
+}
+
+#basedatos-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent overall overflow */
+}
+
+#basedatos-filtros {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  max-width: 160px; /* Optional: limit width */
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+#basedatos-filtros select,
+#basedatos-filtros input,
+#basedatos-filtros button {
+  width: 100%; /* Make each element take full width */
+  padding: 8px;
+  font-size: 14px;
+}
+
+.sugerencias {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  width: calc(100% - 22px); /* Ajusta según el padding del input */
+  z-index: 1000;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+#basedatos-results {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: hidden; /* Avoid outer scrollbars */
+  width: auto;
+}
+
+#basedatos-table {
+  flex: 1;
+  overflow-x: auto;  /* ✅ enables horizontal scrolling for the table */
+  overflow-y: auto;  /* also allows vertical scrolling if it grows too tall */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#basedatos-table {
+  flex: 1;
+  overflow-x: auto;  /* ✅ enables horizontal scrolling for the table */
+  overflow-y: auto;  /* also allows vertical scrolling if it grows too tall */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#basedatos-table table {
+  min-width: 100%;  /* ensures table fits inside the scroll area */
+  border-collapse: collapse;
+}
+
+#basedatos-table th,
+#basedatos-table td {
+  white-space: nowrap; /* prevents cells from wrapping */
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.convocatoria-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 1rem;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#convocatorias-table {
+  flex: 1;
+  overflow-x: auto;   /* ✅ enables horizontal scrolling */
+  overflow-y: auto;   /* vertical scroll if table grows tall */
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#convocatorias-table table {
+  min-width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+#convocatorias-table th,
+#convocatorias-table td {
+  white-space: nowrap;  /* prevents wrapping and overflow */
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+#convocatorias-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.subtable-row table {
+  min-width: 95%;
+  margin-left: 2%;
+  border: 1px solid #ccc;
+}
+
+.subtable-row th,
+.subtable-row td {
+  white-space: nowrap;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+.basedatos-graph {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* optional — centers them horizontally */
+  gap: 10px; /* adds space between elements */
+}

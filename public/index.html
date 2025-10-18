@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sicoescan</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://unpkg.com/typesense/dist/typesense.min.js"></script>
+</head>
+<body>
+  <nav class="navbar-main">
+    <ul>
+      <li><img src="/assets/logo_dark.png" alt="Logo" style="height:40px;"></li>
+      <li><a href="#/informacion">Información</a></li>
+      <li><a href="#/procesos">Procesos</a></li>
+      <li><a href="#/basedatos">Base de Datos</a></li>
+    </ul>
+  </nav>
+  <div id="app">
+    <!-- Router will inject view content here -->
+  </div>
+  <script type="module" src="/js/firebase.js"></script>
+  <script type="module" src="/js/router.js"></script>
+</body>
+</html>

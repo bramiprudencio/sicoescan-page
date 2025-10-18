@@ -1,0 +1,18 @@
+mutation CreateSicoescanPage($name: String!) @auth(level: USER) {
+  sicoescanPage_insert(data: {name: $name, userUid_expr: "auth.uid"})
+}
+
+query ListMySicoescanPages @auth(level: USER) {
+  sicoescanPages(where: {userUid: {eq_expr: "auth.uid"}}) {
+    id
+    name
+  }
+}
+
+mutation UpdateSicoescanPage($id: UUID!, $name: String) @auth(level: USER) {
+  sicoescanPage_update(key: {id: $id}, data: {name: $name})
+}
+
+mutation DeleteSicoescanPage($id: UUID!) @auth(level: USER) {
+  sicoescanPage_delete(key: {id: $id})
+}

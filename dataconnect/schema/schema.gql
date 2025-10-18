@@ -1,0 +1,52 @@
+type User @table {
+  username: String!
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  role: String
+}
+
+type Tender @table {
+  tenderId: String!
+  title: String!
+  issuingAgency: String!
+  announcementDate: Date!
+  deadlineDate: Date!
+  status: String!
+  estimatedBudget: Float!
+  description: String
+  category: String
+  region: String
+  contactEmail: String
+  documentLink: String
+}
+
+type Company @table {
+  companyId: String!
+  name: String!
+  taxId: String!
+  address: String
+  contactPerson: String
+  contactEmail: String
+  sector: String
+}
+
+type Bid @table {
+  bidId: String!
+  tender: Tender!
+  company: Company!
+  submissionDate: Timestamp!
+  bidAmount: Float!
+  status: String
+  notes: String
+}
+
+type Award @table {
+  awardId: String!
+  tender: Tender!
+  awardedCompany: Company!
+  awardDate: Date!
+  contractAmount: Float!
+  contractDuration: String
+  justification: String
+}
