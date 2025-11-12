@@ -1,4 +1,7 @@
-// ===== CONFIG & GLOBALS =====
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBi-DM2RdufFQTejnLwlFVc-sD9FcHFajQ",
   authDomain: "empyrean-cubist-467813-u9.firebaseapp.com",
@@ -8,10 +11,8 @@ const firebaseConfig = {
   appId: "1:376339585453:web:dd5a47fc5664e76baaa924"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-export { auth, db };
+export { db, auth };

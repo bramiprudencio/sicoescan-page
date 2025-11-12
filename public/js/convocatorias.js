@@ -1,23 +1,33 @@
 import { db } from './firebase.js';
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  doc,
+  getDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 async function showProcesos(container) {
   container.innerHTML = `
     <div class="convocatoria-filters">
       <select id="gestion-select"></select>
       <select id="mes-select">
-        <option value=0 selected>Todos</option>
-        <option value=1>Enero</option>
-        <option value=2>Febrero</option>
-        <option value=3>Marzo</option>
-        <option value=4>Abril</option>
-        <option value=5>Mayo</option>
-        <option value=6>Junio</option>
-        <option value=7>Julio</option>
-        <option value=8>Agosto</option>
-        <option value=9>Septiembre</option>
-        <option value=10>Octubre</option>
-        <option value=11>Noviembre</option>
-        <option value=12>Diciembre</option>
+        <option value=-1 selected>Todos</option>
+        <option value=0>Enero</option>
+        <option value=1>Febrero</option>
+        <option value=2>Marzo</option>
+        <option value=3>Abril</option>
+        <option value=4>Mayo</option>
+        <option value=5>Junio</option>
+        <option value=6>Julio</option>
+        <option value=7>Agosto</option>
+        <option value=8>Septiembre</option>
+        <option value=9>Octubre</option>
+        <option value=10>Noviembre</option>
+        <option value=11>Diciembre</option>
       </select>
       <button id="buscar-btn">Buscar</button>
     </div>
@@ -75,37 +85,33 @@ function setupFilters(container) {
     gestionEl.appendChild(option);
   }
   gestionEl.value = currentYear;
-  mesEl.value = 0;
+  mesEl.value = -1;
   container.querySelector('#buscar-btn').addEventListener('click', () => fetchConvocatorias(container));
 }
 
 async function fetchConvocatorias(container) {
-  const gestionEl = container.querySelector('#gestion-select');
-  const mesEl = container.querySelector('#mes-select');
+  const gestion = container.querySelector('#gestion-select').value;
+  const mes = container.querySelector('#mes-select').value;
+  console.log("Fetching convocatorias for year:", gestion, "month:", mes);
 
-  let q = db.collection('convocatorias');
+  let q = collection(db, 'convocatorias');
 
-  // Filter by year
-  const year = gestionEl.value;
-  const startDate = new Date(`${year}-01-01`);
-  const endDate = new Date(`${Number(year) + 1}-01-01`);
-  q = q.where('fecha_publicacion', '>=', startDate)
-       .where('fecha_publicacion', '<', endDate)
-       .orderBy('fecha_publicacion', 'asc');
+  const startDate = new Date(gestion, mes.value === "-1" ? 0 : parseInt(mes), 1);
+  const endDate = mes.value === "-1"
+    ? new Date(parseInt(gestion) + 1, 0, 1)
+    : new Date(parseInt(gestion), parseInt(mes) + 1, 1);
+  console.log("Fetching convocatorias from", startDate, "to", endDate);
+  q = query(
+    q,
+    where('fecha_publicacion', '>=', startDate),
+    where('fecha_publicacion', '<', endDate),
+    orderBy('fecha_publicacion', 'asc'),
+    limit(50)
+  );
 
-  // Filter by month
-  const month = mesEl.value;
-  if (month != 0) {
-    const monthStart = new Date(`${year}-${String(month).padStart(2, '0')}-01`);
-    const monthEnd = new Date(monthStart);
-    monthEnd.setMonth(monthEnd.getMonth() + 1);
-    q = q.where('fecha_publicacion', '>=', monthStart)
-         .where('fecha_publicacion', '<', monthEnd);
-  }
-
-  // Query Firestore
-  const snapshot = await q.limit(100).get();
+  const snapshot = await getDocs(q);
   const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  console.log("Fetched convocatorias:", data);
   renderConvocatorias(data);
 }
 
@@ -117,7 +123,12 @@ async function fetchItems(row, doc, table) {
     return;
   }
 
-  const subSnapshot = await db.collection("items").where("cuce", "==", String(doc.id)).get();
+  const subSnapshot = await getDocs(
+    query(
+      collection(db, "items"),
+      where("cuce", "==", doc.id)
+    )
+  );
   const subData = subSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
   let subRow = table.insertRow(row.rowIndex + 1);
@@ -140,9 +151,9 @@ async function fetchItems(row, doc, table) {
 
 // Get entity name
 async function fetchEntidad(cod) {
-  const snapshot = await db.collection("entidades").doc(cod).get();
+  const snapshot = await getDoc(doc(db, "entidades", cod)); 
   if (!snapshot.exists) return cod;
-  const data = snapshot.data();
+  const data = snapshot.data(); 
   return data.nombre || cod;
 }
 

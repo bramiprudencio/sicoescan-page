@@ -250,6 +250,7 @@ button:disabled {
 
 .basedatos-graphs > div {
   flex: 1 1 auto;
+  margin: 10px;
 }
 
 #basedatos-container {
@@ -387,4 +388,59 @@ button:disabled {
   flex-direction: column;
   align-items: center; /* optional — centers them horizontally */
   gap: 10px; /* adds space between elements */
+}
+
+.spinner {
+  display: none;
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 40px; height: 40px;
+  margin: -20px;
+  border: 4px solid #ccc;
+  border-top: 4px solid steelblue;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.tooltip {
+  position: absolute;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.basedatos-graphs {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.basedatos-graph {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+#histogram {
+  width: 100%;
+  height: 400px;
+}
+
+#piechart {
+  width: 100%;
+  height: 400px;
 }
