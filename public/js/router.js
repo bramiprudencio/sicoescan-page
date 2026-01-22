@@ -1,6 +1,8 @@
 import { showBasedatos } from './basedatos.js';
 import { showProcesos } from './convocatorias.js';
 import { showInformacion } from './informacion.js';
+import { showTerminos } from './terminos.js';
+import { showSicoes } from './sicoes.js';
 
 const appDiv = document.getElementById('app');
 
@@ -19,8 +21,13 @@ function render() {
     case '/informacion':
       showInformacion(appDiv);
       break;
+    case '/sicoes':
+      showSicoes(appDiv);
+      break;
+    case '/terminos':
+      showTerminos(appDiv);
+      break;
     default:
-      // Redirect to a default route if the hash is empty or unknown
       window.location.hash = '/informacion';
       break;
   }

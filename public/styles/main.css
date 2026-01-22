@@ -1,411 +1,162 @@
-:root {
-  --primary-color: #1B263B; 
-  --secondary-color: #415A77;
-  --accent-color: #E0E1DD;
-  --text-color: #000000;
-  --background-color: #f9f9f9;
+/* =============================================
+   1. GLOBAL RESET & DEFAULTS
+   ============================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
   height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   font-family: 'Inter', sans-serif;
-  background-color: var(--background-color);
-}
-
-.navbar-main {
-  background-color: var(--primary-color);
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-main ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.navbar-main li {
-  margin-right: 20px;
-}
-
-.navbar-main a {
-  color: var(--background-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.navbar-main a:hover {
-  color: var(--secondary-color);
-}
-
-.info-1 {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  padding: 40px;
-  text-align: left;
-  font-family: 'Caveat', cursive;
-  display: flex;
-}
-
-.info-1 h1 {
-  font-size: 69px;
-  font-weight: normal;
-}
-
-.info-1 h2 {
-  font-size: 42px;
-  font-weight: normal;
-}
-
-.info-2 {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  padding: 10px;
-  text-align: left;
-  font-family: 'Inter';
-  display: flex;
-}
-
-.info-2 h1 {
-  font-size: 32px;
-  font-weight: normal;
-}
-
-.info-2 h2 {
-  font-size: 24px;
-  font-weight: normal;
-}
-
-.info-3 {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  padding: 40px;
-  text-align: left;
-  font-family: 'Caveat', cursive;
-  display: flex;
-}
-
-table {
-  border-collapse: collapse;
-  margin: 20px auto;
-  width: 95%;
-  max-width: 1400px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  font-size: 14px;
-  background-color: #fff;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-th {
-  background-color: var(--primary-color);
-  color: white;
-  text-align: left;
-  padding: 12px;
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #e0e0e0;
-  vertical-align: top;
-}
-
-tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-tr:hover {
-  background-color: #eef5ff;
-  transition: background-color 0.2s ease;
+/* Make the body the main SPA layout container */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fill the entire viewport height */
+  overflow: hidden; /* Prevent the body itself from scrolling */
 }
 
-table th, table td {
-  border-right: 1px solid #ddd;
-}
-
-table th:last-child,
-table td:last-child {
-  border-right: none;
-}
-
-/* Ajustar anchos de columnas específicas */
-th:nth-child(1), td:nth-child(1) {  /* CUCE */
-  width: 110px;
-  white-space: nowrap;
-}
-
-th:nth-child(2), td:nth-child(2) {  /* Código de la entidad */
-  width: 250px;
-}
-
-th:nth-child(3), td:nth-child(3) {  /* Estado del proceso */
-  width: 120px;
-  text-align: center;
-}
-
-th:nth-child(4), td:nth-child(4) {  /* Objeto de contratación */
-  width: 400px;
-}
-
-th:nth-child(8), td:nth-child(8) {  /* Tipo de contratación */
-  width: 150px;
-}
-
-th:nth-child(12), td:nth-child(12) {  /* Entrega definitiva */
-  width: 130px;
-  text-align: center;
-}
-
-/* Asegura que las celdas largas hagan salto de línea sin romper el layout */
-td {
-  word-wrap: break-word;
-  white-space: normal;
-}
-
-select {
-  appearance: none; /* Removes native arrow */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px 40px 10px 12px;
+/* Base styles for form elements */
+select,
+input[type="search"],
+input[type="text"],
+button {
+  width: 100%;
+  padding: 10px;
   font-size: 14px;
-  font-family: "Segoe UI", sans-serif;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px;
-}
-
-select:hover {
-  border-color: var(--secondary-color);
-}
-
-select:focus {
-  outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 button {
-  background-color: var(--secondary-color);
+  background-color: #415A77;
   color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  border: none;
 }
 
 button:hover {
-  background-color: var(--primary-color);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background-color: #1B263B;
 }
 
-button:active {
-  background-color: var(--secondary-color);
-  transform: scale(0.98);
-}
-
-button:disabled {
-  background-color: #b0c4de;
-  cursor: not-allowed;
-}
-
-.basedatos-graphs {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 1rem;
-  flex-direction: row;
-}
-
-.basedatos-graphs > div {
-  flex: 1 1 auto;
-  margin: 10px;
-}
-
-#basedatos-container {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow: hidden; /* Prevent overall overflow */
-}
-
-#basedatos-filtros {
-  display: flex;
-  flex-direction: column; /* Stack children vertically */
-  max-width: 160px; /* Optional: limit width */
-  flex-wrap: wrap;
-  gap: 8px;
-  overflow-y: auto;
-  flex-shrink: 0;
-  margin-bottom: 1rem;
-}
-
-#basedatos-filtros select,
-#basedatos-filtros input,
-#basedatos-filtros button {
-  width: 100%; /* Make each element take full width */
-  padding: 8px;
-  font-size: 14px;
-}
-
+/* Sugerencias (Autocomplete Dropdown) Styling */
 .sugerencias {
-  position: absolute;
-  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-top: none;
   max-height: 150px;
   overflow-y: auto;
-  width: calc(100% - 22px); /* Ajusta según el padding del input */
+  background: white;
+  position: absolute;
+  width: 100%;
   z-index: 1000;
-  margin-top: -5px;
-  margin-bottom: 5px;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-#basedatos-results {
-  flex: 1;
+.sugerencias div, .sugerencias a {
+  padding: 8px 10px;
+  cursor: pointer;
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+
+.sugerencias div:hover, .sugerencias a:hover {
+  background-color: #eef5ff;
+}
+
+/* =============================================
+   2. SPA SHELL (Navbar & Scroll Wrapper)
+   ============================================= */
+
+.navbar-main {
+  background-color: #1B263B; /* Dark primary color */
+  padding: 10px 20px;
+  flex-shrink: 0; /* Prevents the navbar from shrinking */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 100; /* Keep it on top */
+}
+
+.navbar-main ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 20px;
+}
+
+.navbar-main li:first-child {
+  margin-right: auto; /* Pushes all other links to the right */
+}
+
+.navbar-main a {
+  color: #E0E1DD; /* Light accent color */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-main a:hover,
+.navbar-main a.active {
+  background-color: #415A77; /* Secondary color */
+}
+
+/* --- SCROLLING LAYOUT FIX --- */
+
+/* This wrapper handles the scrolling for the whole page (App + Footer) */
+#main-scroll-wrapper {
+  flex: 1;               /* Fill all remaining vertical space */
+  overflow-y: auto;      /* The scrollbar belongs here */
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  overflow: hidden; /* Avoid outer scrollbars */
-  width: auto;
 }
 
-#basedatos-table {
-  flex: 1;
-  overflow-x: auto;  /* ✅ enables horizontal scrolling for the table */
-  overflow-y: auto;  /* also allows vertical scrolling if it grows too tall */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#basedatos-table {
-  flex: 1;
-  overflow-x: auto;  /* ✅ enables horizontal scrolling for the table */
-  overflow-y: auto;  /* also allows vertical scrolling if it grows too tall */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#basedatos-table table {
-  min-width: 100%;  /* ensures table fits inside the scroll area */
-  border-collapse: collapse;
-}
-
-#basedatos-table th,
-#basedatos-table td {
-  white-space: nowrap; /* prevents cells from wrapping */
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.convocatoria-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 1rem;
-  background-color: #fafafa;
-  border-bottom: 1px solid #ddd;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-#convocatorias-table {
-  flex: 1;
-  overflow-x: auto;   /* ✅ enables horizontal scrolling */
-  overflow-y: auto;   /* vertical scroll if table grows tall */
-  padding: 1rem;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-#convocatorias-table table {
-  min-width: 100%;
-  border-collapse: collapse;
-  margin: 0 auto;
-}
-
-#convocatorias-table th,
-#convocatorias-table td {
-  white-space: nowrap;  /* prevents wrapping and overflow */
-  padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-#convocatorias-table tr:hover {
-  background-color: #f5f5f5;
-}
-
-.subtable-row table {
-  min-width: 95%;
-  margin-left: 2%;
-  border: 1px solid #ccc;
-}
-
-.subtable-row th,
-.subtable-row td {
-  white-space: nowrap;
-  padding: 5px;
-  border: 1px solid #ddd;
-}
-
-.basedatos-graph {
-  display: flex;
+/* The App container now just flows naturally inside the wrapper */
+#app {
+  flex: 0 0 auto;       /* Do NOT force height, let it grow with content */
+  overflow: visible;    /* No internal scrollbar */
+  min-height: 500px;    /* Minimum height so footer isn't too high up on empty pages */
+  display: flex; 
   flex-direction: column;
-  align-items: center; /* optional — centers them horizontally */
-  gap: 10px; /* adds space between elements */
 }
+
+/* Helper to make router-injected pages fill the #app area */
+#app > * { 
+  flex-shrink: 0; 
+}
+
+/* =============================================
+   3. UTILITIES (Spinner, Tooltip)
+   ============================================= */
 
 .spinner {
   display: none;
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 40px; height: 40px;
-  margin: -20px;
+  width: 40px; 
+  height: 40px;
+  margin: 20px auto;
   border: 4px solid #ccc;
   border-top: 4px solid steelblue;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-@keyframes spin { 100% { transform: rotate(360deg); } }
+
+@keyframes spin { 
+  100% { transform: rotate(360deg); } 
+}
 
 .tooltip {
   position: absolute;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.8);
   color: #fff;
   padding: 6px 10px;
   border-radius: 4px;
@@ -413,34 +164,796 @@ button:disabled {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
+  z-index: 1000;
 }
+
+/* =============================================
+   4. PAGE: Base de Datos
+   ============================================= */
+
+/* Main layout for this page */
+#basedatos-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%; 
+  flex: 1; 
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#basedatos-filtros {
+  flex-basis: 220px; 
+  flex-shrink: 0;    
+  /* Removed overflow-y: auto here to let the main page scroll handle it if needed, 
+     or keep it if you want the sidebar to scroll independently */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#basedatos-results {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0; 
+}
+
+/* Graphs (70 / 30 Split) */
 .basedatos-graphs {
   display: flex;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
+  flex-direction: row;
   gap: 1rem;
-  width: 100%;
 }
 
 .basedatos-graph {
-  flex: 1 1 45%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #f8f8f8;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  min-width: 0; 
 }
 
+#histogram-container {
+  flex: 7; 
+}
+
+#piechart-container {
+  flex: 3; 
+}
+
+/* Graph Content */
 #histogram {
   width: 100%;
-  height: 400px;
+  height: 350px;
 }
 
 #piechart {
   width: 100%;
-  height: 400px;
+  height: 250px;
+}
+
+#legend {
+  height: 90px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Table */
+#basedatos-table {
+  flex: 1; 
+  overflow-x: auto; /* Horizontal scroll for table */
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  min-height: 600px; /* Ensure table has height */
+}
+
+#basedatos-table table {
+  min-width: 1800px; /* Force horizontal scroll */
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+#basedatos-table th,
+#basedatos-table td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#basedatos-table th {
+  background-color: #f1f1f1;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* =============================================
+   5. PAGE: Informacion
+   ============================================= */
+
+.info-1, .info-2, .info-3 {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  gap: 2rem;
+}
+
+.info-1 div, .info-2 div, .info-3 div {
+  flex: 1; 
+}
+
+.info-1 img, .info-3 img {
+  flex: 0 0 30%; 
+  width: 30%;
+  height: auto; 
+}
+
+.info-2 img {
+  flex: 0 0 40%;
+  width: 40%;
+  height: auto;
+}
+
+/* Typography */
+.info-1 h1 { font-size: 69px; font-family: 'Caveat', cursive; font-weight: normal; }
+.info-1 h2 { font-size: 42px; font-family: 'Caveat', cursive; font-weight: normal; margin-top: 1rem; }
+
+.info-2 { background-color: #1B263B; color: #f1f1f1; }
+.info-2 h1 { font-size: 32px; margin-bottom: 1.5rem; }
+.info-2 h2 { font-size: 24px; font-weight: normal; margin-top: 1.5rem; }
+
+.info-3 { 
+  text-align: center; 
+  flex-direction: column; 
+}
+.info-3 h1 { 
+  font-size: 42px; 
+  font-family: 'Caveat', cursive; 
+  margin-bottom: 1rem;
+}
+
+/* =============================================
+   6. PAGE: Convocatorias / Procesos
+   ============================================= */
+
+.convocatoria-filters {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px;
+  padding: 1rem;
+  background-color: #fdfdfd;
+  border-bottom: 1px solid #e0e0e0;
+  
+  /* Removed sticky because the whole page scrolls now, 
+     if you want this sticky it needs to be relative to the wrapper */
+  flex-shrink: 0; 
+}
+
+.convocatoria-filters select,
+.convocatoria-filters button {
+  width: auto; 
+  min-width: 150px; 
+}
+
+.convocatoria-filters button {
+  min-width: auto; 
+}
+
+#convocatorias-table {
+  flex: 1; 
+  overflow: auto; 
+  padding: 0 1rem 1rem 1rem; 
+}
+
+#convocatorias-table .styled-table {
+  width: 100%;
+  min-width: 1800px; 
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+#convocatorias-table .styled-table th,
+#convocatorias-table .styled-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap; 
+}
+
+#convocatorias-table .styled-table th {
+  background-color: #f1f1f1;
+  position: sticky;
+  top: 0; 
+}
+
+#convocatorias-table .styled-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#convocatorias-table .styled-table tr:hover {
+  background-color: #eef5ff;
+}
+
+#convocatorias-table .styled-table tr[data-doc-id] {
+  cursor: pointer;
+}
+
+/* Sub-table styles */
+.subtable-row td {
+  padding: 0 !important;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.subtable-row table { 
+  width: 95%;
+  margin: 1rem auto;
+  border: 1px solid #415A77;
+  background-color: #fdfdfd;
+}
+
+.subtable-row th {
+  background-color: #eef5ff;
+}
+
+/* =============================================
+   7. RESPONSIVENESS (Mobile)
+   ============================================= */
+
+@media (max-width: 900px) {
+  .navbar-main ul { gap: 5px; }
+  .navbar-main a { font-size: 14px; padding: 8px; }
+  
+  #basedatos-container {
+    flex-direction: column;
+    height: auto; 
+  }
+
+  #basedatos-filtros {
+    flex-basis: auto; 
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  .basedatos-graphs { flex-direction: column; }
+
+  #histogram-container,
+  #piechart-container {
+    flex: 1 1 100%; 
+  }
+
+  .info-1, .info-2, .info-3 {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .info-1 img, .info-2 img, .info-3 img {
+    width: 60%;
+    max-width: 300px;
+    flex-basis: auto;
+  }
+  .info-1 h1, .info-2 h1, .info-3 h1 { font-size: 32px; }
+  .info-1 h2, .info-2 h2, .info-3 h2 { font-size: 20px; }
+  .info-3 img { order: -1; }
+}
+
+/* =============================================
+   8. TAGS / CHIPS STYLING (High Contrast)
+   ============================================= */
+
+/* Apply to all tag containers */
+#descripcion_tags_container,
+#entidad_tags_container,
+#proponente_tags_container {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 8px;                
+  margin-top: 10px;
+  min-height: 0; /* Changed from fixed height to 0 to collapse if empty */
+}
+
+/* The Tag Chip (Dark Blue) */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  
+  /* Match "Buscar" Button */
+  background-color: #415A77; 
+  color: #ffffff;            
+  
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 6px 6px 12px; 
+  border-radius: 6px;       
+  border: none;
+  max-width: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tag-text {
+  margin-right: 12px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The Close Button (White X on Faint Circle) */
+.tag-close-btn {
+  /* Reset global styles */
+  width: 22px !important;    
+  height: 22px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  
+  /* High Visibility */
+  background-color: rgba(255, 255, 255, 0.2) !important; 
+  color: #ffffff !important; 
+  
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-close-btn:hover {
+  background-color: #ffffff !important; 
+  color: #415A77 !important;
+  transform: scale(1.1);
+}
+
+.tag-close-btn svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+/* =============================================
+   9. FOOTER STYLES
+   ============================================= */
+
+#footer {
+  background-color: #1B263B; 
+  color: #E0E1DD;            
+  padding: 40px 20px 20px;   
+  
+  /* This ensures it stays at the bottom of the scroll wrapper */
+  margin-top: auto; 
+  flex-shrink: 0;            
+  
+  /* Flex Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  font-size: 14px;
+  border-top: 1px solid #415A77; 
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; 
+}
+
+.footer-content h3 {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-family: 'Caveat', cursive; 
+  letter-spacing: 1px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-item a {
+  color: #E0E1DD;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-item a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(224, 225, 221, 0.2); 
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  font-size: 12px;
+  color: #8d99ae; 
+}
+
+/* =============================================
+   10. PAGINATION STYLES (Fixed Layout)
+   ============================================= */
+
+#pagination-container {
+  display: flex !important;
+  flex-direction: row !important;  /* <--- Obliga a ir en horizontal */
+  flex-wrap: wrap !important;      /* Permite que bajen si no caben */
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 5px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+/* Usamos un selector específico para vencer al estilo global */
+#pagination-container button.pagination-btn {
+  /* RESET DE ESTILOS GLOBALES */
+  width: auto !important;          /* <--- CRUCIAL: Evita que sea 100% */
+  min-width: 35px !important;      /* Tamaño mínimo cuadrado */
+  height: 35px !important;
+  margin: 0 !important;
+  
+  /* ESTILOS VISUALES */
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px !important;      /* Padding lateral para Prev/Next */
+  
+  background-color: #ffffff;
+  border: 1px solid #415A77;       /* Azul borde */
+  color: #415A77;                  /* Azul texto */
+  
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#pagination-container button.pagination-btn:hover {
+  background-color: #eef5ff;
+}
+
+/* Página Activa (Azul Solido) */
+#pagination-container button.pagination-btn.active {
+  background-color: #415A77 !important;
+  color: #ffffff !important;
+  border-color: #415A77 !important;
+  pointer-events: none; /* No clickable */
+}
+
+/* Botones deshabilitados (Prev/Next al final) */
+#pagination-container button.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #999;
+  background-color: #f9f9f9;
+}
+
+/* =============================================
+   12. PAGE: SICOES INFO STYLES
+   ============================================= */
+
+#sicoes-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Allow scrolling within the page */
+  background-color: #f3f4f6;
+}
+
+/* Hero Section */
+.sicoes-hero {
+  background-color: #1B263B; /* Primary Dark Blue */
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.sicoes-logo {
+  max-width: 150px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.sicoes-hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #E0E1DD;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* Official Link Button */
+.sicoes-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: #415A77; /* Secondary Blue */
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.sicoes-btn:hover {
+  background-color: #ffffff;
+  color: #1B263B;
+  transform: translateY(-2px);
+}
+
+.sicoes-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Grid Layout */
+.sicoes-grid {
+  max-width: 1000px;
+  margin: -40px auto 40px; /* Negative margin pulls it up into Hero */
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Cards */
+.sicoes-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #eee;
+}
+
+.sicoes-card.full-width {
+  grid-column: span 2;
+}
+
+.sicoes-card.bg-gray {
+  background-color: #f9fafb;
+  border-left: 5px solid #ccc;
+}
+
+.sicoes-card h2 {
+  font-size: 22px;
+  color: #1B263B;
+  margin-bottom: 5px;
+}
+
+.sicoes-card p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 15px;
+  text-align: justify;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+/* List Styling */
+.sicoes-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sicoes-list li {
+  position: relative;
+  padding-left: 20px;
+  color: #555;
+  font-size: 14px;
+}
+
+.sicoes-list li::before {
+  content: "•";
+  color: #415A77;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Tags */
+.tags-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto; /* Push to bottom */
+}
+
+.sicoes-tag {
+  background: #eef5ff;
+  color: #415A77;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Highlight Card (SICOEsCAN) */
+.highlight-card {
+  background: linear-gradient(135deg, #1B263B 0%, #2C3E50 100%);
+  color: white;
+  border: none;
+}
+
+.highlight-card h2 {
+  color: white;
+}
+
+.highlight-card p {
+  color: #E0E1DD;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.feature-item {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.feature-item strong {
+  color: #fff;
+  font-size: 15px;
+}
+
+.feature-item span {
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sicoes-grid {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+  
+  .sicoes-card.full-width {
+    grid-column: span 1;
+  }
+}
+
+/* =============================================
+   13. FORM MODAL (EMBEDDED VIEW)
+   ============================================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+  z-index: 2000; /* High z-index to sit on top of everything */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px); /* Optional: blurs the background */
+}
+
+.modal-content {
+  background-color: white;
+  width: 90%;
+  height: 90%;
+  max-width: 1200px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 10px 20px;
+  background-color: #1B263B; /* Your primary dark blue */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  width: auto; /* Override global button width */
+}
+
+.close-modal-btn:hover {
+  color: #ff6b6b; /* Reddish hover */
+  background: none;
+}
+
+.modal-iframe {
+  flex: 1; /* Fill remaining space */
+  width: 100%;
+  border: none;
+  background-color: #f9f9f9;
+}
+
+/* Animación para las filas de la tabla */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-row-animate {
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0; /* Comienza invisible */
 }
