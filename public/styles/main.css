@@ -233,11 +233,11 @@ button:hover {
 
 #piechart {
   width: 100%;
-  height: 250px;
+  height: 350px;
 }
 
 #legend {
-  height: 90px;
+  height: 100%;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -247,15 +247,15 @@ button:hover {
 /* Table */
 #basedatos-table {
   flex: 1; 
-  overflow-x: auto; /* Horizontal scroll for table */
+  overflow-x: auto;
+  overflow-y: auto;
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  min-height: 600px; /* Ensure table has height */
+  height: 600px;
 }
 
 #basedatos-table table {
-  min-width: 1800px; /* Force horizontal scroll */
   border-collapse: collapse;
   table-layout: fixed; 
 }

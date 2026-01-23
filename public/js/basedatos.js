@@ -29,7 +29,7 @@ const client = new Typesense.Client({
 
 async function showBasedatos(container) {
   container.innerHTML = `
-    <div id="basedatos-layout" style="display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; width: 100%;">
+    <div id="basedatos-layout" style="display: grid; grid-template-columns: 200px 1fr; gap: 20px; align-items: start; width: 100%;">
       <div id="basedatos-filtros">
         <select id="gestion-select"><option disabled>Gestión</option></select>
         <select id="mes-select">
@@ -105,10 +105,9 @@ async function showBasedatos(container) {
               <option value="precio_referencial_total" selected>Monto total referencial </option>
               <option value="precio_adjudicado_total">Monto total adjudicado</option>
             </select>
-            <svg id="histogram" style="width: 100%; height: 300px;"></svg> 
-            <div id="loading" class="spinner"></div>
+            <svg id="histogram" style="width: 100%; height: 220px;"></svg> 
           </div>
-          <div id="piechart-container" class="basedatos-graph" style="display: flex; flex-direction: column; height: 260px;">
+          <div id="piechart-container" class="basedatos-graph" style="display: flex; flex-direction: column; height: 300px;">
             <select id="piechart-mode" style="margin-bottom: 5px; width: 100%; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
               <option value="entidad_nombre" selected>Entidad</option>
               <option value="proponente_nombre">Proponente</option>
@@ -118,11 +117,11 @@ async function showBasedatos(container) {
                 <div style="flex: 0 0 40%; height: 100%; display: flex; align-items: center; justify-content: center;">
                     <svg id="piechart" style="width: 100%; height: 100%;"></svg>
                 </div>
-                <div id="legend" style="flex: 1; height: 100%; overflow-y: auto; padding-left: 10px; font-size: 0.75rem;"></div>
+                <div id="legend" style="flex: 1; width: 50%; height: 100%; overflow-y: auto; padding-left: 10px; font-size: 0.75rem;"></div>
             </div>
           </div>
         </div>
-        <div id="basedatos-table"></div>
+        <div id="basedatos-table" style="height: 600px; overflow-x: auto; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 8px; position: relative;"></div>
         <div id="pagination-container"></div>
       </div>
     </div>
@@ -706,79 +705,120 @@ async function fetchPieChartData(container) {
 }
 
 function renderItems(data, container) {
-  // Tu función renderItems original EXACTA
   const tableContainer = container.querySelector("#basedatos-table");
   tableContainer.innerHTML = "";
+
   if (!data || data.length === 0) {
     tableContainer.innerHTML = "<p class='text-gray-500 text-center py-4'>No se encontraron resultados.</p>";
     return;
   }
+
   const columnNames = {
-    cuce: "CUCE", descripcion: "Descripción", precio_referencial_total: "Monto Ref.",
-    entidad_nombre: "Entidad", entidad_departamento: "Depto.", fecha_publicacion: "Fecha",
-    proponente_nombre: "Proponente", estado: "Estado", cantidad_solicitada: "Cant. Solicitada",
-    cantidad_adjudicada: "Cant. Adjudicada", precio_adjudicado_total: "Monto Adjudicado",
-    modalidad: "Modalidad", tipo_procedimiento: "Tipo Procedimiento"
+    cuce: "CUCE",
+    descripcion: "Descripción",
+    precio_referencial_total: "Total Referencial",
+    entidad_nombre: "Entidad",
+    entidad_departamento: "Departamento",
+    fecha_publicacion: "Fecha Publicación",
+    proponente_nombre: "Proponente",
+    estado: "Estado",
+    cantidad_solicitada: "Cant. Solicitada",
+    cantidad_adjudicada: "Cant. Recepcionada",
+    precio_adjudicado_total: "Total Adjudicado",
+    modalidad: "Modalidad",
+    tipo_procedimiento: "Tipo Proc."
   };
+
   const columnWidths = {
-    cuce: "240px", descripcion: "350px", entidad_nombre: "200px", proponente_nombre: "200px",
-    fecha_publicacion: "120px", default: "150px"
+    cuce: "220px",
+    descripcion: "250px",    
+    entidad_nombre: "180px",
+    entidad_departamento: "130px",
+    proponente_nombre: "180px",
+    fecha_publicacion: "160px",
+    precio_referencial_total: "190px",
+    default: "150px"
   };
 
   let table = document.createElement("table");
+  table.style.tableLayout = "fixed"; 
+  table.style.width = "100%";
   table.className = "min-w-full divide-y divide-gray-200 text-sm text-left text-gray-500";
+
   let thead = table.createTHead();
   thead.className = "text-xs text-gray-700 uppercase bg-gray-50";
   let headerRow = thead.insertRow();
-  Object.values(columnNames).forEach(text => {
+  
+  Object.entries(columnNames).forEach(([key, text]) => {
     let th = document.createElement("th");
-    th.className = "px-6 py-3"; th.textContent = text; headerRow.appendChild(th);
+    th.className = "px-6 py-3 align-top";
+    th.textContent = text;
+    
+    const widthVal = columnWidths[key] || columnWidths.default;
+    th.style.width = widthVal;
+    th.style.position = "sticky";
+    th.style.top = "0";
+    th.style.zIndex = "10";
+    th.style.backgroundColor = "#f9fafb"; 
+    th.style.borderBottom = "2px solid #e5e7eb"; 
+    
+    headerRow.appendChild(th);
   });
+
   let tbody = table.createTBody();
   tbody.className = "bg-white divide-y divide-gray-200";
-  
+
+  let previousCuce = null;
+
   data.forEach((row_data, index) => {
     let row = tbody.insertRow();
-    row.className = "hover:bg-gray-50 table-row-animate";
-    row.style.animationDelay = `${Math.min(index * 30, 1000)}ms`;
+    row.className = "hover:bg-gray-50";
+    const currentCuce = row_data.cuce;
+    if (index > 0 && currentCuce !== previousCuce) {
+        row.style.borderTop = "3px solid #9ca3af"; // #9ca3af es gray-400 (bastante visible)
+    }
+    previousCuce = currentCuce;
+    // ---------------------------------------------------------
+
     Object.keys(columnNames).forEach(key => {
       let cell = row.insertCell();
       const widthVal = columnWidths[key] || columnWidths.default;
-      cell.style.minWidth = widthVal; cell.style.maxWidth = widthVal;
-      cell.className = "px-6 py-4 whitespace-normal break-words align-top"; 
+
+      cell.style.cssText = `
+        width: ${widthVal};
+        white-space: normal !important; 
+        word-wrap: break-word !important; 
+        overflow-wrap: break-word !important;
+        vertical-align: top;
+      `;
+      
+      cell.className = "px-6 py-4"; 
+
       let value = row_data[key];
+
       if (key === 'fecha_publicacion') {
-        if (value && value.value) cell.textContent = new Date(value.value).toISOString().split("T")[0]; // BQ format
-        else if (typeof value === 'string') cell.textContent = value.split("T")[0]; // FS format ISO string
+        cell.style.whiteSpace = "nowrap"; 
+        if (value && value.value) cell.textContent = new Date(value.value).toISOString().split("T")[0];
+        else if (typeof value === 'string') cell.textContent = value.split("T")[0];
         else cell.textContent = "-";
+      
       } else if (key === 'precio_referencial_total' || key === 'precio_adjudicado_total') {
+        cell.style.whiteSpace = "nowrap";
         cell.textContent = new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(value || 0);
-        cell.classList.remove('whitespace-normal'); cell.classList.add('whitespace-nowrap');
+      
       } else {
         cell.textContent = value || "-";
       }
     });
   });
+
   tableContainer.appendChild(table);
 }
 
-// DrawHistogram y DrawPieChart originales aquí...
 async function drawHistogram(container) {
-  const loading = document.getElementById("loading");
-  loading.style.display = "block"; // show spinner
-
   const mes = parseInt(container.querySelector("#mes-select").value);
-
-  // --- FETCH DATA ---
   let histogramData = await fetchHistogramData(container);
-  // ... (El resto de la función drawHistogram es idéntico a tu original)
-  
-  // (COPIAR EL RESTO DE TU FUNCION drawHistogram AQUI)
-  console.log("Histogram Processed Data:", histogramData);
 
-  loading.style.display = "none"; // hide spinner
-
-  // --- CONFIG: Month Names ---
   const monthNames = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
@@ -788,7 +828,6 @@ async function drawHistogram(container) {
     "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
   ];
 
-  // Create tooltip (singleton)
   let tooltip = d3.select("body").select(".tooltip");
   if (tooltip.empty()) {
     tooltip = d3.select("body").append("div").attr("class", "tooltip");
@@ -798,9 +837,9 @@ async function drawHistogram(container) {
   svg.selectAll("*").remove();
 
   // Dimensions
-  const margin = {top: 20, right: 20, bottom: 50, left: 100};
+  const margin = {top: 10, right: 10, bottom: 30, left: 80};
   const baseWidth = 700;
-  const baseHeight = 400;
+  const baseHeight = 300;
   const innerWidth = baseWidth - margin.left - margin.right;
   const innerHeight = baseHeight - margin.top - margin.bottom;
 
@@ -909,7 +948,6 @@ async function drawPieChart(container) {
     const top9 = validData.slice(0, 9);
     const others = validData.slice(9);
     const othersCount = others.reduce((sum, d) => sum + d.count, 0);
-    
     pieData = top9;
     pieData.push({ nombre: "Otros", count: othersCount });
   }
@@ -917,8 +955,8 @@ async function drawPieChart(container) {
   const svg = d3.select("#piechart");
   svg.selectAll("*").remove();
   
-  const baseWidth = 250;
-  const baseHeight = 250;
+  const baseWidth = 225; 
+  const baseHeight = 225;
   const radius = Math.min(baseWidth, baseHeight) / 2;
 
   svg.attr("viewBox", `0 0 ${baseWidth} ${baseHeight}`)
@@ -927,38 +965,26 @@ async function drawPieChart(container) {
   const g = svg.append("g")
       .attr("transform", `translate(${baseWidth / 2},${baseHeight / 2})`);
 
-  // 4. Color Scale
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-  // 5. Draw Arcs (Generators)
-  const pie = d3.pie().value(d => d.count).sort(null); // sort(null) mantiene el orden de los datos
+  const pie = d3.pie().value(d => d.count).sort(null); 
   const path = d3.arc().outerRadius(radius - 10).innerRadius(0);
 
-  // Tooltip Setup
   let tooltip = d3.select("body").select(".tooltip");
   if (tooltip.empty()) {
     tooltip = d3.select("body").append("div").attr("class", "tooltip");
   }
 
-  // Bind Data
   const arcs = g.selectAll(".arc")
     .data(pie(pieData))
     .enter().append("g")
     .attr("class", "arc");
 
-  // --- ANIMACIÓN Y DIBUJO ---
-  
-  // 1. Crear el Path base con color, pero sin el atributo 'd' final todavía
   const paths = arcs.append("path")
     .attr("fill", d => color(d.data.nombre));
 
-  // 2. Animación de Entrada (Radial Wipe)
-  // Usamos attrTween para interpolar el ángulo final desde el inicial
   paths.transition()
-    .duration(1000) // 1 segundo de animación
+    .duration(1000) 
     .attrTween("d", function(d) {
-      // Interpolamos desde el ángulo de inicio hasta el ángulo final
-      // El +0.1 es un pequeño truco para evitar glitches visuales al inicio
       const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
       return function(t) {
         d.endAngle = i(t);
@@ -966,42 +992,27 @@ async function drawPieChart(container) {
       };
     });
 
-  // 3. Eventos e Interacción (Hover Zoom)
   paths.on("mouseover", (event, d) => {
-       // Mostrar Tooltip
        tooltip.transition().duration(100).style("opacity", 1);
        tooltip.html(`<strong>${d.data.nombre}</strong><br/>${d3.format(",")(d.data.count)}`);
-       
-       // Animación Pop-out (Escalar el gajo)
-       d3.select(event.currentTarget)
-         .transition()
-         .duration(200)
-         .attr("transform", "scale(1.08)"); // Crece un 8%
+       d3.select(event.currentTarget).transition().duration(200).attr("transform", "scale(1.08)"); 
     })
     .on("mousemove", (event) => {
        tooltip.style("left", (event.pageX + 10) + "px")
               .style("top", (event.pageY - 28) + "px");
     })
     .on("mouseout", (event) => {
-       // Ocultar Tooltip
        tooltip.transition().duration(200).style("opacity", 0);
-
-       // Restaurar tamaño original
-       d3.select(event.currentTarget)
-         .transition()
-         .duration(200)
-         .attr("transform", "scale(1)");
+       d3.select(event.currentTarget).transition().duration(200).attr("transform", "scale(1)");
     });
 
-  // 6. Draw Legend
   const legend = d3.select("#legend");
   legend.html(""); 
 
   legend.style("display", "flex")
-        .style("flex-wrap", "wrap")
-        .style("justify-content", "flex-start")
-        .style("gap", "10px")
-        .style("padding-top", "10px");
+        .style("flex-direction", "column")
+        .style("gap", "5px")
+        .style("padding-top", "0px");
 
   const legendItems = legend.selectAll(".legend-item")
     .data(pieData)
@@ -1009,20 +1020,20 @@ async function drawPieChart(container) {
       .attr("class", "legend-item")
       .style("display", "flex")
       .style("align-items", "center")
-      .style("margin-right", "10px");
+      .style("margin-bottom", "4px");
 
   legendItems.append("div")
       .style("width", "12px")
       .style("height", "12px")
       .style("flex-shrink", "0")
       .style("background-color", d => color(d.nombre))
-      .style("margin-right", "6px")
+      .style("margin-right", "8px")
       .style("border-radius", "2px");
 
   legendItems.append("span")
       .style("font-size", "11px")
       .style("color", "#555")
-      .style("white-space", "nowrap")
+      .style("word-break", "break-word") 
       .text(d => `${d.nombre} (${d3.format(",")(d.count)})`);
 }
 
